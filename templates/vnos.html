@@ -1,0 +1,26 @@
+{% extends "app_base.html" %}
+
+
+{% block title %}Guest Book - Pregled Vnosa {% endblock title %}
+
+
+{% block naslov%} Knjiga Gostov - Hvala za vaše sporočilo {% endblock naslov %}
+
+
+{% block vsebina %}
+    <div class="col-sm-6">
+       <div class="panel panel-default">
+          <div class="panel-body">
+              <h3 class="page-title">Vaše sporočilo je bilo uspešno shranjeno {{msg.nastanek}}</h3>
+              <p>{{msg.ime}} - {{msg.email}}</p>
+              <p>{{msg.sporocilo}}</p>
+          </div> 
+       </div>
+    </div>
+    <div class="col-sm-6">
+        <div>
+            <a href="/projects/guest-book/pregled-vseh" class="btn btn-info">Seznam vseh Sporočil</a>
+            <a href="/projects/guest-book" class="btn btn-danger">Nazaj na Knjigo Gostov</a>
+        </div>
+    </div>
+{% endblock vsebina %}

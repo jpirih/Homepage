@@ -1,0 +1,28 @@
+{% extends "app_base.html" %}
+
+{% block title %}Dokončno ibriši sporočilo {% endblock title %}
+
+{% block naslov %} Dokončno brisanje  sporočil {% endblock naslov %}
+
+{%block vsebina %}
+
+    
+    <div class="col-sm-6 col-sm-offset-3">
+       <div class="panel panel-default">
+           <div class="panel-body">
+               <h3 class="page-title">Sporočilo - {{sporocilo.key.id()}}</h3>
+               <p><span class="krepko">Avtor:</span> {{sporocilo.ime}}</p>
+               <p><span class="krepko">E-mail:</span> {{sporocilo.email}}</p>
+               <p><span class="krepko">Sporočilo:</span> {{sporocilo.sporocilo}}</p>
+               <hr>
+               <div>
+                    <form action="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/delete" method="post">
+                        <button type="submit" class="btn btn-danger">Dokončno izbriši</button>
+                        <a href="/projects/guest-book/pregled-izbris" class="btn btn-primary">Nazaj na Seznam Sporočil</a>
+                    </form>
+               </div>
+           </div>
+       </div> 
+    </div>
+    
+{% endblock vsebina %}

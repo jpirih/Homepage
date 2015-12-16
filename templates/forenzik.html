@@ -1,0 +1,50 @@
+{% extends "app_base.html"%}
+
+
+{%block title%}Forenzik{%endblock title%}
+
+
+{%block naslov%}Aplikacija forenzični program {%endblock naslov%}
+{%block vsebina%}
+<div class="row">
+    <div class="col-sm-6">
+       <div>
+           <h3>Navodila</h3>
+           <p>
+               To je zelo enostaven forenzični program V spodnje tekstnovno polje vnesite DNK zapis v obliki 
+               "CCAGCAATCGC" zapisano s črkami. In pritisnite  rdeči gumb <span class="btn btn-danger">Preglej lastnosti</span> . 
+               Program vrne seznam vseh lastnosti, ki so zapisane v DNK zapisu ki ste ga vnesli.
+           </p> 
+           <hr>
+       </div>
+        <form action="/projects/forenzik" method="post">
+            <div class="form-group">
+                <label for="vnos_dna">V spodnje polje vnesi DNA osebe</label>
+                <textarea name="vnos_dna" id="vnos_dna" cols="30" rows="10" class="form-control">
+                    
+                </textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Preglej lastnosti</button>
+            </div>
+            
+        </form>
+    </div>
+    <div class="col-sm-6">
+     {% if lastnosti %}
+      <h3>Rezultat</h3>
+      <hr>
+       <div class ="alert-success">
+           <h3>Človek katerega DNK zapis je bil pregledan ima naslednje lastnosti:</h3>
+        <ul>
+           {% for lastnost in lastnosti%}
+            <li class="rezultat krepko">{{lastnost}}</li>
+            {% endfor %}
+               
+        </ul>
+        {% endif %}
+       </div>
+    </div>
+</div>
+
+{%endblock vsebina%}

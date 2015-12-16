@@ -1,0 +1,28 @@
+{% extends "app_base.html"%}
+
+{%block title%}Knjiga gostov - Pregled posamezno {% endblock title %}
+
+
+{% block naslov %}Pregled posameznega sporočila v Knjigi Gostov {% endblock naslov %}
+
+
+{% block vsebina %}
+    <div class="col-sm-6 col-sm-offset-3">
+       <div class="panel panel-default">
+           <div class="panel-body">
+               <h3 class="page-title">Sporočilo - {{sporocilo.key.id()}}</h3>
+               <p><span class="krepko">Avtor:</span> {{sporocilo.ime}}</p>
+               <p><span class="krepko">E-mail:</span> {{sporocilo.email}}</p>
+               <p><span class="krepko">Sporočilo:</span> {{sporocilo.sporocilo}}</p>
+               <hr>
+               <div>
+                   <a href="/projects/guest-book/pregled-vseh" class="btn btn-primary">Nazaj na Seznam vseh Sporočil</a>
+                   <a href="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/uredi" class="btn btn-warning">Uredi Sporočilo</a>
+                   <a href="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/izbrisi" class="btn btn-danger">Izbris sporočila</a>
+               </div>
+           </div>
+       </div> 
+    </div>
+    
+    
+{% endblock vsebina %}

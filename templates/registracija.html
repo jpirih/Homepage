@@ -1,0 +1,39 @@
+{% extends "app_base.html" %}
+{% block title %}Registacija uporabnika {% endblock title %}
+
+
+{% block naslov %}Registracija novega uporabnika {% endblock naslov %}
+
+
+{% block vsebina %}
+<div class="col-sm-6 col-sm-offset-3">
+   <form action="/registracija" method="post">
+       <div class="form-group">
+           <label for="ime">Ime</label>
+           <input type="text" name="ime" id="ime" class="form-control">
+       </div>
+       <div class="form-group">
+           <label for="priimek">Priimek</label>
+           <input type="text" name="priimek" id="priimek" class="form-control">
+       </div>
+       <div class="form-group">
+           <label for="email">E-mail</label>
+           <input type="email" name="email" id="email" class="form-control">
+       </div>
+       <div class="form-group">
+           <label for="geslo">Vnesi geslo</label>
+           <input type="password" name="geslo" id="geslo" class="form-control">
+       </div>
+       <div class="from-group">
+           <label for="ponovno_geslo">Ponovno vnesi geslo</label>
+           <input type="password" name="ponovno_geslo" id="ponovno_geslo" class="form-control">
+       </div>
+       <hr>
+       <div>
+           <button type="submit" class="btn btn-success">Registriraj se</button>
+       </div>
+   </form>
+    
+</div>
+
+{% endblock vsebina %}

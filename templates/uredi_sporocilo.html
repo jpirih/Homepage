@@ -1,0 +1,33 @@
+{% extends "app_base.html" %}
+
+
+{% block title%}Knjiga Gostov - Uredi {% endblock title %}
+
+{% block naslov %}Uredi Vnos v Knjigi Gostov {% endblock naslov %}
+
+
+{% block vsebina %}
+    <div class="col-sm-6 col-sm-offset-3">
+       
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="page-title">Sporočilo - {{sporocilo.key.id()}}</h3>
+                <p><span class="krepko">Avtor:</span> {{sporocilo.ime}}</p>
+                <p><span class="krepko">E-mail:</span> {{sporocilo.email}}</p>
+                <p> <span class="krepko">Uredi Sporočilo:</span></p>
+                <form action="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/uredi" method="post">
+                    <div class="form-group">
+                        <textarea name="sporocilo" id="sporocilo" cols="30" rows="10" class="form-control">   
+                            {{sporocilo.sporocilo}}                      
+                        </textarea>
+                        <br>
+                        <button type="submit" class="btn btn-success">Spremeni</button>
+                        <button type="reset" class="btn btn-primary">Počisti sprembmebe</button>
+                    </div>
+                    
+                </form>
+                
+            </div>
+        </div>
+    </div>
+{% endblock vsebina %}

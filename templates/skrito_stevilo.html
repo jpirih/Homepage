@@ -1,0 +1,55 @@
+{% extends "app_base.html" %}
+
+{% block title %}Skrito stevilo{% endblock title %}
+
+
+{% block naslov %}Aplikacija Ugani skrito število {% endblock naslov %}
+
+
+{% block vsebina %}
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-sm-6">
+           <div class="panel panel-default">
+               <div class="panel-body">
+                   <h3 class="page-title">Navodila</h3>
+                   <p>
+                       To je zelo preprosta aplikacija, ki je trenutno zanimiva samo za enkrat. :) Računalnik je skriv število 
+                       tvoja naloga pa je, da ugotoviš katero je to število :) 
+                   </p>
+                   <p>
+                       V vnosno polje vnesi število in pritisni na Gumb <span class="btn btn-success">Ugibaj</span>. Računalnik spodaj javi ali si zadel ali ne
+                       Če je tvoj poskus napačen poskusi ponovno vpiši drugo število v vnosno polje in pritisni 
+                       gumb <span class="btn btn-success">Ugibaj</span>.
+                       Ko ti bo uspelo ti bo sistem iz srca čestital :).
+                   </p>
+                   <p>
+                       <span class="krepko">Pri ugibaju pazi, da vedno vneseš število</span>P. Pa še en namig skrito število je 
+                       celo število med 0 in 30 in 
+                       je deljivo s 5 brez ostanka :) Pa veliko zabave pri ugibanju Želim :) 
+                   </p>
+                   
+               </div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+            <form action="/projects/stevilo" method="post">
+                <div class="form-group">
+                    <label for="vnos_stevilo"> Poskusi uganiti Skrito Število</label>
+                    <input type="number" name="vnos_stevilo" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Ugibaj</button>
+            </form>
+            <hr>
+            <div>
+               {% if bravo %}
+                    <span class="krepko rezultat alert-success">{{bravo}}</span> <br>
+                {% elif message %}
+                    <span class="alert-danger krepko rezultat">{{message}}</span> <br> 
+                {% elif vnos_err %}
+                    <span class="alert-info krepko rezultat">{{vnos_err}}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock vsebina %}

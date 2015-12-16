@@ -1,0 +1,34 @@
+{% extends "app_base.html" %}
+
+
+{% block title %}Prijava {% endblock title %}
+
+{% block naslov %} Login / Prijavi se{% endblock naslov %}
+
+
+{% block vsebina %}
+<div class="col-sm-4 col-sm-offset-4">
+  <div>
+      <a href="/" class="btn btn-primary">Domov</a>
+      <a href="/registracija" class="btn btn-primary">Registracija</a>
+      <hr>
+  </div>
+   <form action="/login" method="post">
+       <div class="form-group">
+           <label for="email">E-mail</label>
+           <input type="email" name="email" id="email" class="form-control">
+       </div>
+       <div class="from-group">
+           <label for="geslo">Vnesi svoje geslo</label>
+           <input type="password" name="geslo" id="geslo" class="form-control">
+           <hr>
+       </div>
+       <div>
+           <button type="submit" class="btn btn-success">Prijavi se</button>
+       </div>
+       
+   </form>
+    
+</div>
+
+{% endblock vsebina %}

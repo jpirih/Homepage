@@ -1,0 +1,12 @@
+
+
+.jumbotron{
+    border: 2px solid blue;
+}
+.podatkiTabela{
+    border:1px solid black;
+}
+.podatkiTabela th{
+    background-color: greenyellow;
+    text-align: center;
+}

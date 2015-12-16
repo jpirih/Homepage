@@ -1,0 +1,43 @@
+{% extends "app_base.html" %}
+
+
+{% block title %}Pretvornik enot{% endblock title %}
+
+
+{% block naslov %}Aplikacija Pretvornik enot{% endblock naslov %}
+
+
+{% block vsebina %}
+    <div class="row">
+      <div class="row"></div>
+       <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form action="/projects/pretvornik" method="post">
+                <div class="form-group">
+                    <label for="nacin_pretvorbe">Izberi način pretvorbe</label>
+                    <select name="nacin_pretvorbe" class="form-control">
+                        <option value="m-cm">Pretvori iz metrov (m) v centimetre (cm)</option>
+                        <option value="cm-m">Pretvori iz centimetrov (cm) v metre (m)</option>
+                        <option value="km-milja">Pretvori iz kilometrov (km) v milje </option>
+                        <option value="h-min">Pretvori iz ur(h) v minute (min)</option>
+                        <option value="h-s">Pretvori iz ur(h) v sekunde (s)</option>
+                        <option value="s-h">Pretvori iz sekund (s) v ure (h)</option>
+                        <option value="kmh-ms">Pretvori  hitrost iz km/h v m/s</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vrednost">Število za pretvarjanje</label>
+                    <input type="text" name="vrednost" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-info" >Pretvori</button>
+            </form>
+        </div>
+        <div class="col-sm-4">
+           {% if izracun %}
+                <span class="alert-success krepko rezultat"> {{opis}} {{izracun}}</span>
+            {% else %}
+                <span class="alert-danger krepko rezultat">{{err}}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock vsebina%}

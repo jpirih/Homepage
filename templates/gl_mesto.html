@@ -1,0 +1,51 @@
+{% extends "app_base.html" %}
+
+
+{% block title %}Ugani glavno mesto{% endblock %}
+
+
+{% block naslov%}Aplikacija Ugani glavno mesto na sliki  {% endblock naslov %}
+
+
+{% block vsebina %}
+   <div class="row">
+       <div class="col-sm-4">
+           <h3>Katero je glavno mesto države {{drzava}}</h3>
+           <form action="/projects/prestolnica" method="post">
+               <div class="form-group">
+                   <label for="vnos_mesto">Vnesi ime mesta</label>
+                   <input type="text" name="vnos_mesto" class="form-control">
+                   <input type="hidden" name="mesto" value="{{mesto}}">
+               </div>
+               <div class="form-group">
+                   <button type="submit" class="btn btn-success">Ugibaj</button>
+               </div>
+           </form>
+       </div>
+       <div class="col-sm-4">
+           <div>
+              <div>
+                 {% if pravilno%}
+                      <img src={{img_prav}} alt="slika pravilno" class="img img-responisive">
+                  {% elif narobe %}
+                      <img src={{img_narobe}} alt="slika narobe" class="img img-responisive">
+                  {% else %}
+                      <img src={{img}} alt="slika mesta" class="img img-responisive">
+                  {% endif %}
+              </div>
+           </div>
+       </div>
+       <div class="col-sm-4">
+           <div> 
+               {% if pravilno %}
+                   <h3>{{pravilno}} - Bravo Čestitke!!!</h3>
+                   <a href="/projects/prestolnica" class="btn btn-info">Ugibaj Ponovno</a>
+               {% elif narobe %}
+               <h3>{{narobe}} - To pa ne bo držalo</h3>
+               <a href="/projects/prestolnica" class="btn btn-info">Ugibaj Ponovno</a>
+               {% endif %}
+           </div>
+       </div>
+       
+   </div>
+{% endblock vsebina %}

@@ -1,0 +1,55 @@
+{% extends "app_base.html" %}
+
+{% block title %} Knjiga Gostov - Smetnjak {% endblock title %}
+
+
+{% block naslov %} Sporočila iz Knjige Gostov za izbris  {% endblock naslov %}
+
+
+{% block vsebina %} 
+   {% if logiran %}
+   <div class="row">
+       <div class="col-sm-3 col-sm-offset-9">
+           <span class="krepko">Pozdravljen {{uporabnik.nickname()}}</span>
+           <a href="{{logout_url}}" class="btn btn-primary">Odjava</a>
+       </div>
+   </div>
+    <div class="col-sm-8 col-sm-offset-2">
+        <table class="table">
+            <tr>
+                <th>Kreirano</th>
+                <th>Sporočilo</th>
+                <th>Avtor</th>
+                <th colspan="2" class="sredinsko">Možnosti</th>
+            </tr>
+            {% for sporocilo in seznam_izbris %}
+            <tr>
+                <td>{{sporocilo.nastanek}}</td>
+                <td>{{sporocilo.sporocilo}}</td>
+                <td>{{sporocilo.ime}}</td>
+                <td>
+                    <a href="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/delete" class="btn btn-danger">izbriši</a>
+                </td>
+                <td>
+                    <a href="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/obnovi" class="btn btn-success">obnovi</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>Samo za skrbnika - For administrator only </h3>
+                <p>
+                    Za pregledovanje in urejanje izbirisanih sporočil je obvezna prijava.
+                </p>
+                <div>
+                    <a href="{{login_url}}" class="btn btn-primary">Prijava</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock vsebina %}

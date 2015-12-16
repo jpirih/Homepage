@@ -1,0 +1,44 @@
+{% extends "app_base.html" %}
+
+
+{% block title%}Kalkulator{% endblock title %}
+
+
+{% block naslov%}Aplikacija Kalkulator{% endblock naslov %}
+
+
+{% block vsebina %} 
+    <div class="col-sm-4">
+                    <h3 id = "kalkulator">Preprost kalkulator</h3>
+                    <form action="/projects/kalkulator" method="post">
+                        <div class="form-group">
+                            <label for="stevilo1">Število 1</label>
+                            <input type="text" name="stevilo1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="operacija">Izberi operacijo</label><br>
+                            <select name="operacija" id="operacija">
+                                <option value="+">Seštej (+)</option>
+                                <option value="-">Odštej (-)</option>
+                                <option value="*">Zmnoži (*)</option>
+                                <option value="/">Deli (/)</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="stevilo2">Število 2</label>
+                            <input type="text" name="stevilo2" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Izračunaj</button>
+                    </form>
+                    <hr>
+                    <div>
+                        {% if rezultat %}
+                            <div class="krepko alert-success" > Rezultat = {{rezultat}}</div>
+                        {% else %}
+                            <span class="krepko alert-danger">{{deljenje_err}}</span>
+                        {% endif %}
+
+                    </div>
+            </div>
+{% endblock vsebina %}

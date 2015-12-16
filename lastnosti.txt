@@ -1,0 +1,14 @@
+crni lasje,CCAGCAATCGC
+rjavi lasje,GCCAGTGCCG
+korencek lasje,TTAGCTATCGC
+kvadraten obarz,GCCACGG
+okrogel obraz,ACCACAA
+ovalen obraz,AGGCCTCA
+modre oci,TTGTGGTGGC
+rjave oci,AAGTAGTGAC
+zelene oci,GGGAGGTGGC
+moski spol,TGCAGGAACTTC
+zenski spol,TGAAGGACCTTC
+rasa belec,AAAACCTCA
+rasa crnec,CGACTACAG
+rasa azijec,CGCGGGCCG

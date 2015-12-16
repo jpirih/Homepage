@@ -1,0 +1,26 @@
+{% extends "app_base.html" %}
+
+
+{% block title %} Knjiga Gostov - Izbris {% endblock title %}
+{% block naslov%} Brisanje sporočila iz Knjige gostov {% endblock naslov %}
+
+
+{% block vsebina %}
+    <div class="col-sm-6 col-sm-offset-3">
+       <div class="panel">
+           <div class="panel-body">
+               <h3 class="pagle-title">Ali res želite izbirsati to sporočilo</h3>
+               <p><span class="krepko"> Sporočilo: </span> {{sporocilo.key.id()}}</p>
+               <p><span class="krepko">Vsebina sporočila:</span> {{sporocilo.sporocilo}}</p>
+               <div>
+                   <form action="/projects/guest-book/sporocilo/{{sporocilo.key.id()}}/izbrisi" method="post">
+                       <button type="submit" class="btn btn-success">Da, izbriši</button>
+                   </form>
+               </div>
+               
+           </div>
+       </div>
+       
+        
+    </div>
+{% endblock vsebina %}

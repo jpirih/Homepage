@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{%block title%}Kontakt{%endblock title%}
+{%block title_stran%}Kontakt{%endblock title_stran%}
+{%block kontakt%}active{%endblock kontakt%}
+
+{%block naslov%}Kontakt in Lokacija{%endblock naslov%}
+{%block opis%}Enostavno me najdeš{%endblock opis%}
+
+{%block vsebina%}
+    <div class="row">
+            <div class="col-sm-12">
+                <h2>Kontakt</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Kontaktni podatki</h3>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            Janko Pirih <br>
+                            Podlanišče 15 <br>
+                            5282 Cerkno <br>
+                            e-pošta: <a href="mailto://janko.pirih@gmail.com">janko.pirih@gmail.com</a> <br>
+                            Facebook: <a href="https://www.facebook.com/janko.pirih">Moj facebook profil</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3>Pošlji sporočilo</h3>
+                    {% if potrditev %}
+                    <p><span class="alert-success krepko">{{ potrditev }}</span></p>
+                    {% endif %}
+
+                    {% if logiran %}
+                    <form action="/contact" method="post">
+                        <div class="form-group">
+                        <div class="form-group">
+                            <label for="sporocilo">Vnesi svoje sporčilo</label>
+                            <textarea name="sporocilo" id="sporocilo" cols="30" rows="10"class="form-control">
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Pošlji</button>
+                            <button type="reset" class="btn btn-danger">Izbirši </button>
+                        </div>
+
+                        </form>
+                    {% else %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Prijavi Se
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Za pisanje sporočila moraš biti prijavljen.
+                                če še nisi registriran se najprej registraraj
+                            </p>
+                            <p>
+                                <a href="/registracija" class="btn btn-primary">Registracija</a>
+                                <a href="/login" class="btn btn-primary">Prijavi se</a>
+                            </p>
+
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Lokacija</h2>
+                    Ta razdelek sem želel dodati, za vse tiste, ki mislijo, da živim na koncu sveta. Citat enega
+                    dostavljalca hitre pošte, ko sem ga le pregovoril naj mi paket prosim prinese domov:
+                    <span class="italic">Pa kje vi to žvite :)</span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>Ker so nekateri podatki že zgoraj dodam na tem mestu samo še zemljevid - Vir google- maps</p>
+                        <div class="video sredinsko">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2765.8399544322733!2d14.031119999999994!3d46.11409599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477ae62aa0a1fc03%3A0x83f0940e07c4f71!2sPodlani%C5%A1%C4%8De+15%2C+5282+Cerkno!5e0!3m2!1ssl!2ssi!4v1444150600601" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{%endblock vsebina%}
+
+{%block kontakt_sp%}active{%endblock kontakt_sp%}
+

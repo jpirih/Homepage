@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="author" content="Janko Pirih">
+    <meta name="description" content="My home page test GAE, webapp2, Jinja2, bootstrap, html, css, first web app ">
+    <meta name="keywords" content="test GAE, webapp2, Jinja2, bootstrap, html, css, first web ap">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- moj css spremembe bootstrap-a -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {% block head %}{% endblock head %}
+    <!-- Browser tab title -->
+    <title>{% block title%}{% endblock title%}</title>
+</head>
+<body>
+    <!-- navigacija zgoraj  -->
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fulid">
+            <span class="navbar-brand">{% block title_stran%}{% endblock title_stran %}</span>
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbarHeader">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navbarHeader">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% block domov%}{% endblock domov%}"><a href="/">Domov</a></li>
+                    <li class="{% block about%}{%endblock about %}"><a href="/about">O meni</a></li>
+                    <li class="{% block blog %}{%endblock blog%}"><a href="/blog">Blog</a></li>
+                    <li class="{%block aktivnost%}{%endblock aktivnost%}"><a href="/activities">Aktivnosti</a></li>
+                    <li class="{% block projekti%}{%endblock projekti%}"><a href="/projects">Projekti</a></li>
+                    <li class="{% block kontakt%}{%endblock kontakt%}"><a href="/contact">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="jumbotron">
+            <div class="sredinsko">
+                <h1>{% block naslov %}{% endblock naslov%}</h1>
+                <p>
+                    {%block opis%}{% endblock opis %}
+                </p>
+            </div>
+        </div>
+        {% block vsebina %} {%endblock vsebina%}
+    </div>
+   
+  
+ <!-- navigacija spodaj  -->
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fulid">
+            <span class="navbar-brand">Janko Pirih -  2015 </span>
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbarFooter">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navbarFooter">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% block domov_sp%}{% endblock domov_sp%}"><a href="/">Domov</a></li>
+                    <li class="{% block about_sp%}{%endblock about_sp %}"><a href="/about">O meni</a></li>
+                    <li class="{% block blog_sp %}{%endblock blog_sp%}"><a href="/blog">Blog</a></li>
+                    <li class="{%block aktivnost_sp%}{%endblock aktivnost_sp%}"><a href="/activities">Aktivnosti</a></li>
+                    <li class="{% block projekti_sp%}{%endblock projekti_sp%}"><a href="/projects">Projekti</a></li>
+                    <li class="{% block kontakt_sp%}{%endblock kontakt_sp%}"><a href="/contact">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>

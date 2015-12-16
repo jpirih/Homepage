@@ -1,0 +1,11 @@
+
+.jumbotron {
+    border: 2px solid #cc0000;
+}
+
+.panel-default {
+    border: 1px solid #cc0000;
+}
+.list-group a:{
+    color:white;
+}
