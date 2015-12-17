@@ -6,7 +6,7 @@
 
 {% block vsebina %}
 
-{% if logiran %}
+{% if prijavljen %}
 <div class="row">
     <div class="col-sm-4 col-sm-offset-8">
         <span class="krepko">Pozdravljen/-a {{uporabnik.nickname()}}</span>
@@ -79,6 +79,7 @@
                 </div>
             </div>
     </div>
+    </div>
 {% endif %}
-    
-    {% endblock vsebina %}
+
+        {% endblock vsebina %}

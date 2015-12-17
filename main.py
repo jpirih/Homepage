@@ -24,7 +24,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/projects/stevilo', skrito_stevilo.SteviloHandler),
     webapp2.Route('/projects/prestolnica',gl_mesto.PrestolnicaHandler),
     webapp2.Route('/projects/forenzik', forenzik.ForenzikHandler),
-    webapp2.Route('/projects/guest-book', guest_book.GuestBookHndler),
+    webapp2.Route('/projects/guest-book', guest_book.GuestBookHndler, name="guest-book"),
     webapp2.Route('/projects/guest-book/pregled',guest_book.GuestBookVnosHandler),
     webapp2.Route('/projects/guest-book/pregled-vseh',guest_book.SeznamVsehVnosovHnadler, name="seznam-sporocil"),
     webapp2.Route('/projects/guest-book/sporocilo/<sporocilo_id:\d+>',guest_book.PosameznoSporociloHandler),

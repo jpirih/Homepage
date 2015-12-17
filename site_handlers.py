@@ -30,9 +30,11 @@ class BaseHandler(webapp2.RequestHandler):
     def render_template(self, view_filename, params=None):
         if not params:
             params = {}
-
+# spremenljivka cooki_value dobi vrednost ko je uporabnik logiran
         cookie_value = self.request.cookies.get('uid')
 
+# ce je uporabnik logiran torej obstaja veljaven piskot se v paremtre doda logiran
+# v nasprotnem primeru velja da uporabnik ni logiran
         if cookie_value:
             params['logiran'] = self.preveri_cookie(cookie_vrednost=cookie_value)
         else:
@@ -41,6 +43,7 @@ class BaseHandler(webapp2.RequestHandler):
         template = jinja_env.get_template(view_filename)
         return self.response.out.write(template.render(params))
 
+# funkcija ustvari cookie v katerega se zapise id uporabnik ki je trenutno prijavljen
     def ustvari_cookie(self, uporabnik):
         uporabnik_id = uporabnik.key.id()
         expires = datetime.datetime.utcnow() + datetime.timedelta(days=10)
@@ -49,6 +52,7 @@ class BaseHandler(webapp2.RequestHandler):
         vrednost = "{0}:{1}:{2}".format(uporabnik_id, sifra, expires_ts)
         return  self.response.set_cookie(key='uid', value=vrednost, expires=expires)
 
+# funkcija preveri veljanost cookie - nastavljeno velja 10 dni
     def preveri_cookie(self, cookie_vrednost):
         uporabnik_id, sifra, expires_ts = cookie_vrednost.split(':')
 
@@ -119,7 +123,7 @@ class RegistracijaHandler(BaseHandler):
         geslo = self.request.get('geslo')
         ponovno_geslo = self.request.get('ponovno_geslo')
 
-        mail_obstaja  = Uporabnik.query(Uporabnik.email == email).fetch()
+        mail_obstaja = Uporabnik.query(Uporabnik.email == email).fetch()
 
         if mail_obstaja:
            return self.write('email je ze v bazi')

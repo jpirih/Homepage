@@ -5,8 +5,6 @@ from models import GuestBook
 from google.appengine.api import users
 from site_handlers import BaseHandler
 
-
-
 # -------------- KNJIGA GOSTOV ------------
 
 # Kontroler za GuestBook aplikacijo
@@ -14,13 +12,13 @@ class GuestBookHndler(BaseHandler):
     def get(self):
         uporabnik = users.get_current_user()
         if uporabnik:
-            logiran = True
+            prijavljen = True
             logout_url = users.create_logout_url('/projects/guest-book')
-            params = {'uporabnik': uporabnik, 'logiran': logiran, 'logout_url': logout_url}
+            params = {'uporabnik': uporabnik, 'prijavljen': prijavljen, 'logout_url': logout_url}
         else:
-            logiran = False
+            prijavljen = False
             login_url = users.create_login_url('/projects/guest-book')
-            params = {'uporabnik': uporabnik, 'logiran': logiran, 'login_url': login_url}
+            params = {'uporabnik': uporabnik, 'prijavljen': prijavljen, 'login_url': login_url}
 
         return self.render_template("guest_book.html", params=params)
 
@@ -51,9 +49,13 @@ class GuestBookVnosHandler(BaseHandler):
 # Kontroler seznam vnosov
 class SeznamVsehVnosovHnadler(BaseHandler):
     def get(self):
-        seznam = GuestBook.query(GuestBook.izbrisan == False).fetch()
-        params = {"seznam":seznam}
-        return self.render_template("pregled.html", params=params)
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            seznam = GuestBook.query(GuestBook.izbrisan == False).fetch()
+            params = {"seznam":seznam}
+            return self.render_template("pregled.html", params=params)
+        else:
+            return self.redirect_to('guest-book')
 
 # Kontroler za seznam izbrisanih sporočil
 class OznaceniZaBrisanje(BaseHandler):
@@ -62,30 +64,39 @@ class OznaceniZaBrisanje(BaseHandler):
         seznam_izbris = GuestBook.query(GuestBook.izbrisan == True).fetch()
 
         if uporabnik and uporabnik.nickname() == 'janko.pirih':
-            logiran = True
+            prijavljen = True
             logout_url = users.create_logout_url('/projects/guest-book/pregled-izbris')
-            params ={'uporabnik': uporabnik, 'logiran': logiran, 'logout_url': logout_url, 'seznam_izbris': seznam_izbris}
+            params ={'uporabnik': uporabnik, 'prijavljen': prijavljen, 'logout_url': logout_url, 'seznam_izbris': seznam_izbris}
         else:
-            logiran = False
+            prijavljen = False
             login_url = users.create_login_url('/projects/guest-book/pregled-izbris')
-            params = {'uporabnik': uporabnik, 'logiran': logiran, 'login_url': login_url,'seznam_izbiris': seznam_izbris}
+            params = {'uporabnik': uporabnik, 'logiran': prijavljen, 'login_url': login_url,'seznam_izbiris': seznam_izbris}
 
         return self.render_template("seznam_izbris.html", params=params)
 
 # Kontroler za preled posameznega sporocila
 class PosameznoSporociloHandler(BaseHandler):
     def get(self, sporocilo_id):
-        # vrne objekt vsa polja ki jih vsebuje sporocilo s dolocenim ID -jem
-        sporocilo = GuestBook.get_by_id(int(sporocilo_id))
-        params = {"sporocilo":sporocilo}
-        return self.render_template("pregled_posamezno.html", params=params)
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            # vrne objekt vsa polja ki jih vsebuje sporocilo s dolocenim ID -jem
+            sporocilo = GuestBook.get_by_id(int(sporocilo_id))
+            params = {"sporocilo":sporocilo}
+            return self.render_template("pregled_posamezno.html", params=params)
+        else:
+            return self.redirect_to('guest-book')
 
 # Kontroler za urenanje vnosov
 class UrediSporociloHandler(BaseHandler):
     def get(self, sporocilo_id):
-        sporoilo = GuestBook.get_by_id(int(sporocilo_id))
-        params = {"sporocilo":sporoilo}
-        return self.render_template("uredi_sporocilo.html", params=params)
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            sporoilo = GuestBook.get_by_id(int(sporocilo_id))
+            params = {"sporocilo":sporoilo}
+            return self.render_template("uredi_sporocilo.html", params=params)
+        else:
+            return self.redirect_to('guest-book')
+
 
     def post(self, sporocilo_id):
         vnos = self.request.get("sporocilo")
@@ -97,9 +108,14 @@ class UrediSporociloHandler(BaseHandler):
 # Kontroler za brisanje sporocil
 class IzbirsiSporociloHandler(BaseHandler):
     def get(self, sporocilo_id):
-        sporocilo = GuestBook.get_by_id(int(sporocilo_id))
-        params = {"sporocilo":sporocilo}
-        return self.render_template("izbris_sporocila.html", params=params)
+        uporabnik = users.get_current_user()
+
+        if uporabnik:
+            sporocilo = GuestBook.get_by_id(int(sporocilo_id))
+            params = {"sporocilo":sporocilo}
+            return self.render_template("izbris_sporocila.html", params=params)
+        else:
+            return self.redirect_to('guest-book')
 
     def post(self, sporocilo_id):
         sporocilo = GuestBook.get_by_id(int(sporocilo_id))
@@ -110,10 +126,15 @@ class IzbirsiSporociloHandler(BaseHandler):
 # Kontroler za admin delete
 class AdminDeleteHandler(BaseHandler):
     def get(self, sporocilo_id):
-        sporocilo = GuestBook. get_by_id(int(sporocilo_id))
+        uporabnik = users.get_current_user()
 
-        params = {'sporocilo': sporocilo}
-        return self.render_template('admin_delete.html', params=params)
+        if uporabnik.nickname() == 'janko.pirih':
+            sporocilo = GuestBook. get_by_id(int(sporocilo_id))
+
+            params = {'sporocilo': sporocilo}
+            return self.render_template('admin_delete.html', params=params)
+        else:
+            return self.redirect_to('seznam-izbiris')
 
     def post(self, sporocilo_id):
         sporocilo = GuestBook.get_by_id(int(sporocilo_id))
@@ -124,9 +145,14 @@ class AdminDeleteHandler(BaseHandler):
 # admin obnovi  sporocilo
 class ObnoviSporociloHandler(BaseHandler):
     def get(self, sporocilo_id):
-        sporocilo = GuestBook.get_by_id(int(sporocilo_id))
-        params = {'sporocilo': sporocilo}
-        return self.render_template('obnovi.html',params=params)
+        uporabnik = users.get_current_user()
+
+        if uporabnik.nickname() == 'janko.pirih':
+            sporocilo = GuestBook.get_by_id(int(sporocilo_id))
+            params = {'sporocilo': sporocilo}
+            return self.render_template('obnovi.html',params=params)
+        else:
+            return self.redirect_to('seznam-izbirs')
 
     def post(self, sporocilo_id):
         sporocilo = GuestBook.get_by_id(int(sporocilo_id))
