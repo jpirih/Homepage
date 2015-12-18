@@ -1,0 +1,48 @@
+{% extends "app_base.html" %}
+{% block title %} Prijavi se {% endblock title %}
+
+
+{% block naslov %} Prijavi se {% endblock naslov %}
+
+{% block vsebina %}
+<div class="col-sm-4 col-sm-offset-4">
+   {% if prijavljen %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Navodila za prijavo
+        </div>
+        <div class="panel-body">
+            <p>
+                Za pisanje sporočil moraš na zavihku Kontakt 
+                in pisanje komentarjev na blogu moraš biti prijavljen 
+                Prijaviš se lahko z svojim google računom klikni na sopodnji gumb
+            </p>
+            <p>
+                <a href="{{ logout_url }}" class="btn btn-primary">Odjava</a>
+                <a href="/" class="btn btn-danger">Domov</a>
+            </p>
+        </div>
+    </div>
+    {% else %}
+     <div class="panel panel-primary">
+        <div class="panel-heading">
+            Navodila za prijavo
+        </div>
+        <div class="panel-body">
+            <p>
+                Za pisanje sporočil moraš na zavihku Kontakt 
+                in pisanje komentarjev na blogu moraš biti prijavljen 
+                Prijaviš se lahko z svojim google računom klikni na sopodnji gumb
+            </p>
+            <p>
+                <a href="{{ login_url }}" class="btn btn-primary">Prijava</a>
+                <a href="/" class="btn btn-danger">Domov</a>
+            </p>
+        </div>
+    </div>
+    
+    {% endif %}
+    
+</div>
+
+{% endblock vsebina %}

@@ -1,0 +1,50 @@
+{% extends "app_base.html" %}
+
+
+{% block title %} Login success {% endblock title %}
+
+
+{% block naslov %} Hvala za  prijavo {% endblock naslov %}
+
+
+{% block vsebina %}
+  
+   {% if logiran %}
+    <div class="col-sm-6 col-sm-offset-3">
+       <h4>Nekaj lepega za vse ki ste ves dan v megli :) </h4>
+       <div class="panel panel-primary">
+           <div class="panel-heading">
+               Zame najlepši pogled na svetu
+           </div>
+           <div class="panel-body">
+               <img src="/assets/img/porezen.jpg" alt="porezen" class="img img-responsive slikca">
+           </div>
+           <div class="panel-footer panel-primary">
+               <span class="sredinsko">Porezen 1630 m n.m.v</span>
+           </div>
+           
+       </div>
+        
+    </div>
+    {% else %}
+    <div class="col-sm-4 col-sm-offset-4">
+       <div class="panel panel-primary">
+        <div class="panel-heading">
+            Prijavi Se
+        </div>
+        <div class="panel-body">
+            <p>
+                Za ogled vsebine na tej strani moraš biti posebej prijavljen
+                Če si na tej strani privč se najprej registriraj Hvala :) 
+            </p>
+            <p>
+                <a href="/registracija" class="btn btn-primary">Registracija</a>
+                <a href="/login" class="btn btn-primary">Prijavi se</a>
+            </p>
+
+        </div>
+    </div> 
+    </div>
+    
+    {% endif %}
+{% endblock vsebina %}

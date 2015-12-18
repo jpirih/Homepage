@@ -5,7 +5,8 @@ import os
 import jinja2
 import webapp2
 import datetime
-from models import Uporabnik, Sporocilo
+from models import Sporocilo
+from google.appengine.api import users
 from secret import secret
 import time
 import hmac
@@ -64,6 +65,9 @@ class BaseHandler(webapp2.RequestHandler):
             else:
                 return False
 
+ # ------- Kontrolerji za glavno ravne strani ------
+
+# kontroler za osnovno stran index.html
 
 class MainHandler(BaseHandler):
     def get(self):
@@ -74,8 +78,24 @@ class MainHandler(BaseHandler):
         params = {'datum':danes,"cas":cas}
         return self.render_template("index.html",params=params)
 
-class AboutHandler(BaseHandler):
+class PrijavaHandler(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            prijavljen = True
+            logout_url = users.create_logout_url('/')
+            params = {'uporabnik': uporabnik, 'prijavljen':prijavljen, 'logout_url':logout_url}
+            return self.render_template('prijavi_se.html', params=params)
 
+        else:
+            prijavljen = False
+            login_url = users.create_login_url('/contact')
+            params = {'prijavljen': prijavljen, 'login_url': login_url}
+            return self.render_template('prijavi_se.html', params=params)
+
+
+# Kontroler za zavihek  o meni
+class AboutHandler(BaseHandler):
     def get(self):
         return self.render_template("about.html")
 
@@ -92,19 +112,24 @@ class ActivitiesHandler(BaseHandler):
 # Kontroler kontakt
 class ContactHandler(BaseHandler):
     def get(self):
-        return self.render_template("contact.html")
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            params = {'uporabnik': uporabnik}
+            return self.render_template("contact.html", params=params)
+        else:
+            return self.render_template('contact.html')
+
 
     def post(self):
+        uporabnik = users.get_current_user()
+        vzdevek = self.request.get('vzdevek')
+        email =self.request.get('email')
         sporocilo = self.request.get('sporocilo')
-
-        sporocilo = Sporocilo(sporocilo=sporocilo)
+        sporocilo = Sporocilo(sporocilo=sporocilo, vzdevek=vzdevek, email=email)
         potrditev = "Hvala za tvoje sporocilo :)"
         sporocilo.put()
-        params = {'potrditev':potrditev}
+        params = {'potrditev':potrditev, 'uporabnik':uporabnik}
         return self.render_template('contact.html', params=params)
-
-
-
 
 # kontroler za  zavihek projekti
 class ProjectsHandler(BaseHandler):

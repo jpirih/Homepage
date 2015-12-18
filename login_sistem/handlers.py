@@ -1,6 +1,9 @@
 from site_handlers import BaseHandler
 from models import Uporabnik
 
+# kontrolerji za lasten  login sistem - samo test delovanja
+# za ostale pomembne stvari stran uporablja google laogin
+
 # kontroler registracija novega uporabnika
 class RegistracijaHandler(BaseHandler):
     def get(self):
@@ -37,8 +40,13 @@ class LoginHndler(BaseHandler):
              uporabnik = Uporabnik.query(Uporabnik.email == email).get()
              if Uporabnik.preveri_geslo(original_geslo=geslo, uporabnik=uporabnik):
                 self.ustvari_cookie(uporabnik=uporabnik)
-                return self.redirect('/contact')
+                return self.redirect('/login-sistem')
              else:
                  return self.write('Prislo je do napake mail ali geslo ni pravilno ce se nisi se Registriraj :(')
          except:
              return self.write('Prislo je do Napke Pred prvo prijavo je obvezna registracija Pazi na pravilen podatkov')
+
+ # Kontroler zasebne strani test login sistem
+class PrijavljenHandler(BaseHandler):
+    def get(self):
+        return self.render_template('login_correct.html')

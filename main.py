@@ -11,7 +11,7 @@ from kalkulator.handlers import KalkulatorHandler
 from pretvornik.handlers import PretvornikHandler
 from forenzik.handlers import ForenzikHandler
 from gl_mesto.handlers import PrestolnicaHandler
-from login_sistem.handlers import RegistracijaHandler, LoginHndler
+from login_sistem.handlers import RegistracijaHandler, LoginHndler, PrijavljenHandler
 
 
 # Route - navigacija po spletnem mestu
@@ -37,7 +37,9 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/projects/guest-book/sporocilo/<sporocilo_id:\d+>/delete', AdminDeleteHandler),
     webapp2.Route('/projects/guest-book/sporocilo/<sporocilo_id:\d+>/obnovi', ObnoviSporociloHandler),
     webapp2.Route('/registracija', RegistracijaHandler),
-    webapp2.Route('/login', LoginHndler, name='login')
+    webapp2.Route('/login', LoginHndler, name='login'),
+    webapp2.Route('/login-sistem', PrijavljenHandler),
+    webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava")
 ], debug=True)
 
 
