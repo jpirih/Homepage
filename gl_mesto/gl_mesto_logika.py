@@ -34,7 +34,7 @@ def getData(source):
 
 # ustvari seznam objektov, ki ga uporablja get fukcija znotraj PrestolnicaHandler-ja
 # za nakljucno izbiranje mest
-seznam = getData("source.txt")
+seznam = getData("gl_mesto/source.txt")
 
 
 

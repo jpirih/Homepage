@@ -13,5 +13,5 @@ def get_lastnosti(lastnosti_file):
         return vse_lastnosti
 
 # seznam vseh lastnosti vsebuje slovar v obliki  CCAGCAATCGC: crni lasje
-seznam_vseh_lastnosti = get_lastnosti("lastnosti.txt")
+seznam_vseh_lastnosti = get_lastnosti("forenzik/lastnosti.txt")
 
