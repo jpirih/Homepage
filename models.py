@@ -47,7 +47,7 @@ class Uporabnik(ndb.Model):
 
 # model za sporocila znotraj Kontakt zavihka
 class Sporocilo(ndb.Model):
-    nastanek = ndb.DateTimeProperty(auto_now_add=True)
+    nastanek = ndb.DateTimeProperty()
     vzdevek = ndb.StringProperty()
     email = ndb.StringProperty()
     sporocilo = ndb.TextProperty()

@@ -45,6 +45,14 @@ class BaseHandler(webapp2.RequestHandler):
         template = jinja_env.get_template(view_filename)
         return self.response.out.write(template.render(params))
 
+    def trenutni_datum_cas(self):
+        now = datetime.datetime.now()
+        slo_datum = now + datetime.timedelta(hours=1)
+        danes = datetime.datetime.strftime(slo_datum, '%d.%m.%Y %H:%M:%S')
+        datum = datetime.datetime.strptime(danes, '%d.%m.%Y %H:%M:%S')
+        return datum
+
+
 # funkcija ustvari cookie v katerega se zapise id uporabnik ki je trenutno prijavljen
     def ustvari_cookie(self, uporabnik):
         uporabnik_id = uporabnik.key.id()
@@ -123,10 +131,12 @@ class ContactHandler(BaseHandler):
 
     def post(self):
         uporabnik = users.get_current_user()
-        vzdevek = self.request.get('vzdevek')
-        email =self.request.get('email')
+        vzdevek = uporabnik.nickname()
+        email = uporabnik.email()
         msg = self.request.get('sporocilo')
-        sporocilo = Sporocilo(sporocilo=msg, vzdevek=vzdevek, email=email)
+        danes = datetime.datetime.now()
+        datum = self.trenutni_datum_cas()
+        sporocilo = Sporocilo(sporocilo=msg, vzdevek=vzdevek, email=email, nastanek=datum)
         potrditev = "Hvala za tvoje sporocilo :)"
         sporocilo.put()
 
@@ -155,3 +165,4 @@ class AdminHandler(BaseHandler):
             return self.render_template('admin.html', params=params)
         else:
             self.redirect_to('prijava')
+
