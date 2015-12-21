@@ -7,6 +7,7 @@ import webapp2
 import datetime
 from models import Sporocilo
 from google.appengine.api import users
+from google.appengine.api import mail
 from secret import secret
 import time
 import hmac
@@ -124,10 +125,18 @@ class ContactHandler(BaseHandler):
         uporabnik = users.get_current_user()
         vzdevek = self.request.get('vzdevek')
         email =self.request.get('email')
-        sporocilo = self.request.get('sporocilo')
-        sporocilo = Sporocilo(sporocilo=sporocilo, vzdevek=vzdevek, email=email)
+        msg = self.request.get('sporocilo')
+        sporocilo = Sporocilo(sporocilo=msg, vzdevek=vzdevek, email=email)
         potrditev = "Hvala za tvoje sporocilo :)"
         sporocilo.put()
+
+        # Kako sporocilo dobis na mail
+        e_posta = mail.EmailMessage(sender=email,
+                                    to='janko.pirih@gmail.com',
+                                    subject="Kontakt sporocilo iz domace strani",
+                                    body=msg)
+        e_posta.send()
+
         params = {'potrditev':potrditev, 'uporabnik':uporabnik}
         return self.render_template('contact.html', params=params)
 
