@@ -135,3 +135,14 @@ class ContactHandler(BaseHandler):
 class ProjectsHandler(BaseHandler):
     def get(self):
         return self.render_template("projects.html")
+
+# kontroler administracija
+class AdminHandler(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        if uporabnik and uporabnik.nickname() == "janko.pirih":
+            seznam_sporocil = Sporocilo.query().fetch()
+            params = {'seznam': seznam_sporocil, 'uporabnik':uporabnik}
+            return self.render_template('admin.html', params=params)
+        else:
+            self.redirect_to('prijava')

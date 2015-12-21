@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Skrbinški pregled {% endblock title %}
+{% block admin %}active{% endblock admin %}
+
+{% block naslov %} Administrcija strani {% endblock naslov %}
+{% block opis %} Pogled z administratojeve prspektive {% endblock opis %}
+
+{% block vsebina %} 
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> Seznam prejetih sporočil </h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <table class="table">
+                <tr>
+                    <th>Datum</th>
+                    <th>Sporočilo</th>
+                    <th>Avtor</th>
+                    <th>E-mail</th>
+                </tr>
+                {% for sporocilo in seznam %}
+                <tr>
+                    <td>{{ sporocilo.nastanek }}</td>
+                    <td>{{ sporocilo.sporocilo }}</td>
+                    <td>{{ sporocilo.vzdevek }}</td>
+                    <td>{{ sporocilo.email }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock vsebina %}
+
+{% block admin_sp %}active{% endblock admin_sp %}

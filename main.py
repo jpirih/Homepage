@@ -39,7 +39,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/registracija', RegistracijaHandler),
     webapp2.Route('/login', LoginHndler, name='login'),
     webapp2.Route('/login-sistem', PrijavljenHandler),
-    webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava")
+    webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava"),
+    webapp2.Route('/admin', site_handlers.AdminHandler),
 ], debug=True)
 
 
