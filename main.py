@@ -12,6 +12,7 @@ from pretvornik.handlers import PretvornikHandler
 from forenzik.handlers import ForenzikHandler
 from gl_mesto.handlers import PrestolnicaHandler
 from login_sistem.handlers import RegistracijaHandler, LoginHndler, PrijavljenHandler
+from admin.handlers import AdminHandler
 
 
 # Route - navigacija po spletnem mestu
@@ -40,7 +41,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/login', LoginHndler, name='login'),
     webapp2.Route('/login-sistem', PrijavljenHandler),
     webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava"),
-    webapp2.Route('/admin', site_handlers.AdminHandler),
+    webapp2.Route('/admin',AdminHandler),
 ], debug=True)
 
 

@@ -140,10 +140,10 @@ class ContactHandler(BaseHandler):
         potrditev = "Hvala za tvoje sporocilo :)"
         sporocilo.put()
 
-        # Kako sporocilo dobis na mail
+        # sporocila iz kontaktnega obrazca dobim na mail
         e_posta = mail.EmailMessage(sender=email,
                                     to='janko.pirih@gmail.com',
-                                    subject="Kontakt sporocilo iz domace strani",
+                                    subject="Kontakt sporocilo iz domace strani od %s" % vzdevek,
                                     body=msg)
         e_posta.send()
 
@@ -155,14 +155,4 @@ class ProjectsHandler(BaseHandler):
     def get(self):
         return self.render_template("projects.html")
 
-# kontroler administracija
-class AdminHandler(BaseHandler):
-    def get(self):
-        uporabnik = users.get_current_user()
-        if uporabnik and uporabnik.nickname() == "janko.pirih":
-            seznam_sporocil = Sporocilo.query().fetch()
-            params = {'seznam': seznam_sporocil, 'uporabnik':uporabnik}
-            return self.render_template('admin.html', params=params)
-        else:
-            self.redirect_to('prijava')
 
