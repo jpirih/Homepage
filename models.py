@@ -45,9 +45,20 @@ class Uporabnik(ndb.Model):
         else:
             return False
 
+# ---------------- KONEC  Lastnega avtentikacijskegas sitema -----------
+
 # model za sporocila znotraj Kontakt zavihka
 class Sporocilo(ndb.Model):
     nastanek = ndb.DateTimeProperty()
     vzdevek = ndb.StringProperty()
     email = ndb.StringProperty()
     sporocilo = ndb.TextProperty()
+
+# ---- USER  model dodatek k google login nekaj dodatnih informacij o uporabniku ---- #
+
+class User(ndb.Model):
+    ime = ndb.StringProperty()
+    priimek = ndb.StringProperty()
+    vzdevek = ndb.StringProperty(default='vzdevek')
+    email = ndb.StringProperty()
+    regisriran = ndb.BooleanProperty(default=False)

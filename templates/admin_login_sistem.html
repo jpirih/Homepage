@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} Admin login sistem  {% endblock title %}
+{% block admin %}active{% endblock admin %}
+
+{% block naslov %} Pregled uporabnikov Login sistema {% endblock naslov %}
+{% block opis %} Pregled vseh uporabnikov, ki so registrirani znoraj lastnega logini sistema {% endblock opis %}
+
+{% block vsebina %} 
+   <div class="row">
+       <div class="col-sm-8 col-sm-offset-2">
+          <a href="/admin" class="btn btn-danger">Admin</a>
+           <a href="/admin/login-sistem" class="btn btn-primary">Login-sistem</a>
+       </div>
+   </div> 
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> Seznam registriranih uporabnikov </h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <table class="table">
+                <tr>
+                    <th>Ime</th>
+                    <th>Priimek</th>
+                    <th>Email</th>
+                </tr>
+                {% for uporabnik in seznam %}
+                <tr>
+                    <td>{{ uporabnik.ime }}</td>
+                    <td>{{ uporabnik.priimek }}</td>
+                    <td>{{ uporabnik.email }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock vsebina %}
+
+{% block admin_sp %}active{% endblock admin_sp %}

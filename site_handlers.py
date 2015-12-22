@@ -5,7 +5,7 @@ import os
 import jinja2
 import webapp2
 import datetime
-from models import Sporocilo
+from models import Sporocilo, User
 from google.appengine.api import users
 from google.appengine.api import mail
 from secret import secret
@@ -87,20 +87,58 @@ class MainHandler(BaseHandler):
         params = {'datum':danes,"cas":cas}
         return self.render_template("index.html",params=params)
 
+# Prijava uporabnika  za dostop do aplikacij kjer je  prijava potrebna
+# osnovna prijavna stran
+
 class PrijavaHandler(BaseHandler):
     def get(self):
         uporabnik = users.get_current_user()
-        if uporabnik:
-            prijavljen = True
-            logout_url = users.create_logout_url('/')
-            params = {'uporabnik': uporabnik, 'prijavljen':prijavljen, 'logout_url':logout_url}
-            return self.render_template('prijavi_se.html', params=params)
+        podatki_uporabnika = User()
+        vzdevek = podatki_uporabnika.vzdevek
+        registriran = podatki_uporabnika.regisriran
 
+        if uporabnik and uporabnik.nickname() != vzdevek:
+            prijavljen = True
+            params = {'uporabnik': uporabnik, 'podatki_uporabnika': podatki_uporabnika, 'prijavljen': prijavljen, 'registriran': registriran}
+            return self.render_template('prijavi_se.html', params=params)
+        elif uporabnik and uporabnik_obstaja:
+            prijavljen = True
+            registriran = True
+            logout_url = users.create_logout_url('/')
+            params = {'uporabnik': uporabnik, 'prijavljen':prijavljen, 'logout_url':logout_url, 'registriran': registriran}
+            return self.render_template('prijavi_se.html', params=params)
         else:
             prijavljen = False
-            login_url = users.create_login_url('/contact')
+            login_url = users.create_login_url('/prijavi-se')
             params = {'prijavljen': prijavljen, 'login_url': login_url}
             return self.render_template('prijavi_se.html', params=params)
+
+    def post(self):
+        uporabnik = users.get_current_user()
+        podatki_uporabnika = User()
+        registriran = podatki_uporabnika.regisriran
+        err = ""
+        ime = self.request.get('ime')
+        priimek = self.request.get('priimek')
+        vzdevek = self.request.get('vzdevek')
+        email = uporabnik.email()
+
+        if ime or priimek != "":
+            podatki_uporabnika.ime = ime
+            podatki_uporabnika.priimek = priimek
+            podatki_uporabnika.vzdevek = vzdevek
+            podatki_uporabnika.email = email
+            podatki_uporabnika.regisriran = True
+            podatki_uporabnika.put()
+            return self.redirect('/')
+        elif(ime or priimek == "") or (ime[0] or priimek[0] == " "):
+            err = " Vnos imena in priimka je  0bvezen! Klikni gumb Prijava in vesi vse podatke"
+            params = {'err': err, 'uporabnik': uporabnik, 'registriran': registriran}
+            return self.render_template('prijavi_se.html', params=params)
+
+
+
+
 
 
 # Kontroler za zavihek  o meni
