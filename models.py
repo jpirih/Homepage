@@ -62,3 +62,11 @@ class User(ndb.Model):
     vzdevek = ndb.StringProperty(default='vzdevek')
     email = ndb.StringProperty()
     regisriran = ndb.BooleanProperty(default=False)
+
+class MalilMessage(ndb.Model):
+    from_email = ndb.StringProperty()
+    from_nickname = ndb.StringProperty()
+    to_email = ndb.StringProperty()
+    subject = ndb.StringProperty()
+    message = ndb.TextProperty()
+    datum = ndb.DateTimeProperty()

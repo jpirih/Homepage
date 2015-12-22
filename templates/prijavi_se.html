@@ -18,30 +18,10 @@
                 Prijaviš se lahko z svojim google računom klikni na sopodnji gumb
             </p>
             <p>
-                {% elif prijavljen and not registriran %}
-               
-                <form action="/prijavi-se" method="post">
-                    <label for="ime">Ime</label>
-                    <input type="text" name="ime" id="ime" class="form-control">
-                    <label for="priimek">Priimek</label>
-                    <input type="text" name="priimek" id="priimek" class="form-control">
-                    <label for="vzdevek">Vzdevek</label>
-                    <input type="text" name="vzdevek" id="vzdevek" value="{{ uporabnik.nickname() }}" class="form-control">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" value="{{uporabnik.email()}}" class="form-control">
-                    <hr>
-                    <button type="submit" class="btn btn-success">Shrani podatke</button>
-                    <a href="{{ logout_url }}" class="btn btn-primary">Odjava</a>
-                <a href="/" class="btn btn-danger">Domov</a>
-                    
-                </form>
-                
+                <a href="/" class="btn btn-success">Domov</a>
+                <a href="{{logout_url}}" class="btn btn-danger">Odjava</a>
             </p>
-     
-                
             
-        </div>
-    </div>
     {% else %}
      <div class="panel panel-primary">
         <div class="panel-heading">

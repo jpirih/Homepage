@@ -13,7 +13,7 @@ from forenzik.handlers import ForenzikHandler
 from gl_mesto.handlers import PrestolnicaHandler
 from login_sistem.handlers import RegistracijaHandler, LoginHndler, PrijavljenHandler
 from admin.handlers import AdminHandler, LoginAdminHndler
-
+from brmail.handlers import PrejetoHandler, PoslanoHandler, NovoSporociloHandler, SporociloPodrnoHandler
 
 # Route - navigacija po spletnem mestu
 app = webapp2.WSGIApplication([
@@ -43,6 +43,10 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava"),
     webapp2.Route('/admin',AdminHandler),
     webapp2.Route('/admin/login-sistem', LoginAdminHndler),
+    webapp2.Route('/projects/brmail/prejeto', PrejetoHandler),
+    webapp2.Route('/projects/brmail/poslano', PoslanoHandler, name='brmail-poslano'),
+    webapp2.Route('/projects/brmail/novo', NovoSporociloHandler),
+    webapp2.Route('/projects/brmail/sporocilo-podrobno/<mail_id:\d+>', SporociloPodrnoHandler)
 ], debug=True)
 
 

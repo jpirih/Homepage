@@ -1,0 +1,51 @@
+{% extends "app_base.html" %}
+
+{% block title%} Brmail - Poslano {% endblock title %}
+
+
+{% block naslov %} Brmail Poslano - {{ uporabnik.nickname() }} {% endblock naslov %}
+
+{% block vsebina %}
+
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Novo sporočilo
+        </div>
+        <div class="panel-body">
+            Klikni in ustvari novo sporočilo 
+            <a href="/projects/brmail/novo" class="btn btn-primary">Novo sporočilo</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="sredinsko">Poslana sporočila</h2>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="/projects/brmail/prejeto" class="btn btn-primary">Prejeto</a></li>
+            <li><a href="/projects/brmail/poslano" class="btn btn-primary">Poslano</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        <table class="table">
+            <tr>
+                <th>Prejemnik</th>
+                <th>Zadeva</th>
+                <th>Datum</th>
+            </tr>
+            {% for message in seznam_poslanih %}
+            <tr>
+                <td>{{ message.to_email }}</td>
+                <td> <a href="/projects/brmail/sporocilo-podrobno/{{message.key.id()}}">{{ message.subject }}</a></td>
+                <td>{{ message.datum }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock vsebina%}
