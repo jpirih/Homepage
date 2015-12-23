@@ -54,14 +54,7 @@ class Sporocilo(ndb.Model):
     email = ndb.StringProperty()
     sporocilo = ndb.TextProperty()
 
-# ---- USER  model dodatek k google login nekaj dodatnih informacij o uporabniku ---- #
-
-class User(ndb.Model):
-    ime = ndb.StringProperty()
-    priimek = ndb.StringProperty()
-    vzdevek = ndb.StringProperty(default='vzdevek')
-    email = ndb.StringProperty()
-    regisriran = ndb.BooleanProperty(default=False)
+# Brmail message model
 
 class MalilMessage(ndb.Model):
     from_email = ndb.StringProperty()
@@ -70,3 +63,16 @@ class MalilMessage(ndb.Model):
     subject = ndb.StringProperty()
     message = ndb.TextProperty()
     datum = ndb.DateTimeProperty()
+    osnutek = ndb.BooleanProperty(default=False)
+    izbrisan = ndb.BooleanProperty(default=False)
+
+
+# ---- USER  model dodatek k google login nekaj dodatnih informacij o uporabniku ---- #
+# Trenutno ni v uporabi
+
+class User(ndb.Model):
+    ime = ndb.StringProperty()
+    priimek = ndb.StringProperty()
+    vzdevek = ndb.StringProperty(default='vzdevek')
+    email = ndb.StringProperty()
+    regisriran = ndb.BooleanProperty(default=False)
