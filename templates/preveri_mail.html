@@ -1,0 +1,35 @@
+{%  extends "app_base.html" %}
+{% block title%}Pozdravljen :) {% endblock title %}
+
+
+{% block naslov %}Pozdarvljen/-a prijavljen/-a si kot {{ uporabnik.nickname() }}{% endblock naslov %}
+
+
+{% block vsebina %}
+
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Hvala za prijavo </div>
+        <div class="panel-body">
+            <p>
+                Za nadaljevanje klikni Gumb <span class="btn btn-success">Naprej</span>
+                Če si že registriran boš preusmerjen na osnovno stran v kolikor še nisi prosim
+                izpolni podatke  v naslednjem koraku.
+            </p>
+            <p>
+                <form action="/prijavi-se/preveri-mail" method="post">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" value="{{uporabnik.email()}}" class="form-control" disabled>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success">Naprej</button>
+                    </div>
+                </form>
+            </p>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock vsebina %}

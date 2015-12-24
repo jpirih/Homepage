@@ -74,6 +74,8 @@ class BaseHandler(webapp2.RequestHandler):
             else:
                 return False
 
+
+
  # ------- Kontrolerji za glavno ravne strani ------
 
 # kontroler za osnovno stran index.html
@@ -101,9 +103,48 @@ class PrijavaHandler(BaseHandler):
             return self.render_template('prijavi_se.html', params=params)
         else:
             prijavljen = False
-            login_url = users.create_login_url('/')
+            login_url = users.create_login_url('/prijavi-se')
             params = {'prijavljen': prijavljen, 'login_url': login_url}
             return self.render_template('prijavi_se.html', params=params)
+
+class PozdravUporabnikHandler(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            params = {'uporabnik': uporabnik}
+            return self.render_template('preveri_mail.html', params=params)
+        else:
+            self.redirect_to('prijava')
+
+    def post(self):
+        uporabnik = users.get_current_user()
+        email = uporabnik.email()
+        reg_uporabnik = User.query(User.email == email).fetch()
+
+        if reg_uporabnik:
+            return self.redirect_to('main')
+        else:
+            # redirect_to reg-uporabnika
+            return self.redirect_to('reg-uporabnika')
+
+class RegUporabnikaHandler(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        params = {'uporabnik': uporabnik}
+        return self.render_template('reg_uporabnika.html', params=params)
+
+    def post(self):
+        uporabnik = users.get_current_user()
+        ime = self.request.get('ime')
+        priimek = self.request.get('priimek')
+        vzdevek = uporabnik.nickname()
+        email = uporabnik.email()
+        regisriran = True
+
+        nov_uporabnik = User(ime=ime, priimek=priimek, vzdevek=vzdevek, email=email, regisriran=regisriran)
+        nov_uporabnik.put()
+
+        return self.redirect_to('main')
 
 
 

@@ -16,6 +16,8 @@ from admin.handlers import AdminHandler, LoginAdminHndler
 from brmail.handlers import PrejetoHandler, PoslanoHandler, NovoSporociloHandler, SporociloPodrnoHandler
 from brmail.handlers import OdgovoriHandler
 
+
+
 # Route - navigacija po spletnem mestu
 app = webapp2.WSGIApplication([
     webapp2.Route('/', site_handlers.MainHandler, name='main'),
@@ -42,6 +44,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/login', LoginHndler, name='login'),
     webapp2.Route('/login-sistem', PrijavljenHandler),
     webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava"),
+    webapp2.Route('/prijavi-se/preveri-mail', site_handlers.PozdravUporabnikHandler),
+    webapp2.Route('/prijavi-se/reg-uporabnika', site_handlers.RegUporabnikaHandler, name='reg-uporabnika'),
     webapp2.Route('/admin',AdminHandler),
     webapp2.Route('/admin/login-sistem', LoginAdminHndler),
     webapp2.Route('/projects/brmail/prejeto', PrejetoHandler),
