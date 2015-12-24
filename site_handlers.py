@@ -8,6 +8,8 @@ import datetime
 from models import Sporocilo, User
 from google.appengine.api import users
 from google.appengine.api import mail
+from google.appengine.api import urlfetch
+import json
 from secret import secret
 import time
 import hmac
@@ -86,8 +88,16 @@ class MainHandler(BaseHandler):
         danes = datetime.datetime.strftime(datum,"%d.%m.%Y")
         tocen_cas = datum + datetime.timedelta(hours=1)
         cas = datetime.datetime.strftime(tocen_cas, "%H:%M:%S")
-        params = {'datum':danes,"cas":cas}
+
+
+        # vreme api open weather map :)
+        url = "http://api.openweathermap.org/data/2.5/weather?q=Cerkno,uk&units=metric&appid=425d08d39ad4a87c17bcb351795ba4c3"
+        result = urlfetch.fetch(url)
+        podatki = json.loads(result.content)
+        params = {'datum':danes,"cas":cas, 'podatki': podatki}
+
         return self.render_template("index.html",params=params)
+
 
 # Prijava uporabnika  za dostop do aplikacij kjer je  prijava potrebna
 # osnovna prijavna stran

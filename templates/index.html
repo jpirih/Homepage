@@ -15,7 +15,25 @@
    
 {%block vsebina%}
         <div class="row">
-            <div class="col-sm-12">
+           <div class="col-sm-3">
+               <div class="panel panel-success">
+                   <div class="panel-heading">
+                       Trenutni podatki o Vremenu
+                   </div>
+                   <div class="panel-body">
+                       <p>
+                           <span class="krepko"> Kraj: </span> Cerkno
+                       </p>
+                       <p>
+                           <span class="krepko"> Temperatura: </span> {{ podatki.main.temp }} °C
+                       </p>
+                       <p>
+                           <span class="krepko"> Opis:</span> {{podatki.weather[0].description}}
+                       </p>
+                   </div>
+               </div>
+           </div>
+            <div class="col-sm-6">
                 <h2 class="sredinsko">Dobrodošli!</h2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
@@ -49,6 +67,21 @@
                     Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum
                     sodales, augue velit cursus nunc,
                 </p>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Bližnjice
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <a href="/projects" class="btn btn-primary">Aplikacije</a>
+                            <a href="/prijavi-se" class="btn btn-danger">Prijava-Odjava</a>
+                        </p>
+                        
+                    </div>
+                </div>
+                
             </div>
 
         </div>

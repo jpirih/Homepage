@@ -14,7 +14,7 @@ from gl_mesto.handlers import PrestolnicaHandler
 from login_sistem.handlers import RegistracijaHandler, LoginHndler, PrijavljenHandler
 from admin.handlers import AdminHandler, LoginAdminHndler
 from brmail.handlers import PrejetoHandler, PoslanoHandler, NovoSporociloHandler, SporociloPodrnoHandler
-from brmail.handlers import OdgovoriHandler
+from brmail.handlers import OdgovoriHandler, ImenikHandler, SporociloZaUporabnika
 
 
 
@@ -53,6 +53,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/projects/brmail/novo', NovoSporociloHandler),
     webapp2.Route('/projects/brmail/sporocilo-podrobno/<mail_id:\d+>', SporociloPodrnoHandler),
     webapp2.Route('/projects/brmail/sporocilo/<mail_id:\d+>/odgovori', OdgovoriHandler),
+    webapp2.Route('/projects/brmail/imenik', ImenikHandler),
+    webapp2.Route('/projects/brmail/sporocilo-za/<user_id:\d+>', SporociloZaUporabnika)
 ], debug=True)
 
 
