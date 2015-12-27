@@ -3,7 +3,7 @@
 from site_handlers import BaseHandler
 from google.appengine.api import users
 from google.appengine.api import mail
-from models import MalilMessage
+from models import MalilMessage, User
 
 
 class PrejetoHandler(BaseHandler):
@@ -94,6 +94,23 @@ class OdgovoriHandler(BaseHandler):
 
         mail_message.put()
         return self.redirect_to('brmail-poslano')
+
+class ImenikHandler(BaseHandler):
+    def get(self):
+        seznam_kontaktov = User.query().order(User.priimek).fetch()
+        params = {'seznam_kontaktov': seznam_kontaktov}
+        return self.render_template('brmail_imenik.html', params=params)
+
+class SporociloZaUporabnika(BaseHandler):
+    def get(self, user_id):
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            dolocen_uporabnik = User.get_by_id(int(user_id))
+            params = {'uporabnik': uporabnik, 'dolocen_uporabnik':dolocen_uporabnik}
+            return self.render_template('brmail_sporocilo_za.html', params=params)
+        else:
+            self.redirect_to('prijava')
+
 
 
 

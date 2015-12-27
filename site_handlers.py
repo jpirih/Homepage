@@ -8,6 +8,8 @@ import datetime
 from models import Sporocilo, User
 from google.appengine.api import users
 from google.appengine.api import mail
+from google.appengine.api import urlfetch
+import json
 from secret import secret
 import time
 import hmac
@@ -74,6 +76,8 @@ class BaseHandler(webapp2.RequestHandler):
             else:
                 return False
 
+
+
  # ------- Kontrolerji za glavno ravne strani ------
 
 # kontroler za osnovno stran index.html
@@ -84,8 +88,16 @@ class MainHandler(BaseHandler):
         danes = datetime.datetime.strftime(datum,"%d.%m.%Y")
         tocen_cas = datum + datetime.timedelta(hours=1)
         cas = datetime.datetime.strftime(tocen_cas, "%H:%M:%S")
-        params = {'datum':danes,"cas":cas}
+
+
+        # vreme api open weather map :)
+        url = "http://api.openweathermap.org/data/2.5/weather?q=Cerkno,uk&units=metric&appid=425d08d39ad4a87c17bcb351795ba4c3"
+        result = urlfetch.fetch(url)
+        podatki = json.loads(result.content)
+        params = {'datum':danes,"cas":cas, 'podatki': podatki}
+
         return self.render_template("index.html",params=params)
+
 
 # Prijava uporabnika  za dostop do aplikacij kjer je  prijava potrebna
 # osnovna prijavna stran
@@ -101,9 +113,48 @@ class PrijavaHandler(BaseHandler):
             return self.render_template('prijavi_se.html', params=params)
         else:
             prijavljen = False
-            login_url = users.create_login_url('/')
+            login_url = users.create_login_url('/prijavi-se')
             params = {'prijavljen': prijavljen, 'login_url': login_url}
             return self.render_template('prijavi_se.html', params=params)
+
+class PozdravUporabnikHandler(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            params = {'uporabnik': uporabnik}
+            return self.render_template('preveri_mail.html', params=params)
+        else:
+            self.redirect_to('prijava')
+
+    def post(self):
+        uporabnik = users.get_current_user()
+        email = uporabnik.email()
+        reg_uporabnik = User.query(User.email == email).fetch()
+
+        if reg_uporabnik:
+            return self.redirect_to('main')
+        else:
+            # redirect_to reg-uporabnika
+            return self.redirect_to('reg-uporabnika')
+
+class RegUporabnikaHandler(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        params = {'uporabnik': uporabnik}
+        return self.render_template('reg_uporabnika.html', params=params)
+
+    def post(self):
+        uporabnik = users.get_current_user()
+        ime = self.request.get('ime')
+        priimek = self.request.get('priimek')
+        vzdevek = uporabnik.nickname()
+        email = uporabnik.email()
+        regisriran = True
+
+        nov_uporabnik = User(ime=ime, priimek=priimek, vzdevek=vzdevek, email=email, regisriran=regisriran)
+        nov_uporabnik.put()
+
+        return self.redirect_to('main')
 
 
 

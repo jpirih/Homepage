@@ -1,0 +1,52 @@
+{% extends "app_base.html" %}
+
+
+{% block title%} Prva Prijava - Registracija {% endblock title %}
+
+
+{% block naslov %} Registracija uporabnika {{uporabnik.nickname()}} {% endblock naslov %}
+
+
+{% block vsebina %}
+<div class="col-sm-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Prva prijava registracija
+        </div>
+        <div class="panel-body">
+            <p>
+                Pred prvo prijavo na Tej spletni strani je potrebna registracija, 
+                ker bi kljub priročnosti vzdevkov in email naslovov vseeno rad vedel kako ti je v 
+                resnici ime :) 
+            </p>
+            <p>
+                <span class="krepko">Obvezno je izpolniti vsa polja Hvala :) </span>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-sm-6">
+    <form action="/prijavi-se/reg-uporabnika" method="post">
+        <div class="from-group">
+            <label for="ime">Ime</label>
+            <input type="text" name="ime" id="ime" required class="form-control">
+        </div>
+        <div class="from-group">
+            <label for="priimek">Priimek</label>
+            <input type="text" name="priimek" id="priimek" required class="form-control">
+        </div>
+        <div class="from-group">
+            <label for="vzdevek">Vzdevek</label>
+            <input type="text" name="vzdevek" id="vzdevek" value="{{uporabnik.nickname()}}" class="form-control" disabled>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" value="{{uporabnik.email()}}" class="form-control" disabled>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success">Shrani Podatke</button>
+        </div>
+    </form>
+</div>
+
+{% endblock vsebina %}
