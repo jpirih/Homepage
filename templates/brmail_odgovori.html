@@ -19,7 +19,7 @@
         <form action="/projects/brmail/sporocilo/{{mail_message.key.id()}}/odgovori" method="post">
             <div class="from-group">
                 <label for="from_email">From/Pošiljatelj </label>
-                <input type="email" name="from_email" id="from_email" value="{{mail_message.to_email}}" class="form-control">
+                <input type="email" name="from_email" id="from_email" value="{{uporabnik.email()}}" class="form-control">
             </div>
             <div class="form-group">
                 <label for="to_email">To/Prejemnik</label>

@@ -18,6 +18,20 @@ indexes:
 
 - kind: MalilMessage
   properties:
+  - name: from_email
+  - name: izbrisan
+  - name: datum
+    direction: desc
+
+- kind: MalilMessage
+  properties:
+  - name: izbrisan
+  - name: to_email
+  - name: datum
+    direction: desc
+
+- kind: MalilMessage
+  properties:
   - name: to_email
   - name: datum
     direction: desc

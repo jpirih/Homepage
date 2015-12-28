@@ -10,7 +10,7 @@ class PrejetoHandler(BaseHandler):
     def get(self):
         uporabnik = users.get_current_user()
         if uporabnik:
-            sezam_prejtih = MalilMessage.query(uporabnik.email() == MalilMessage.to_email).order(-MalilMessage.datum).fetch()
+            sezam_prejtih = MalilMessage.query(uporabnik.email() == MalilMessage.to_email, MalilMessage.izbrisan == False).order(-MalilMessage.datum).fetch()
             params = {'seznam_prejetih': sezam_prejtih, 'uporabnik': uporabnik}
             return self.render_template('brmail_prejeto.html', params=params)
         else:
@@ -20,7 +20,7 @@ class PoslanoHandler(BaseHandler):
     def get(self):
         uporabnik = users.get_current_user()
         if uporabnik:
-            sezam_poslanih = MalilMessage.query(uporabnik.email() == MalilMessage.from_email).order(-MalilMessage.datum).fetch()
+            sezam_poslanih = MalilMessage.query(uporabnik.email() == MalilMessage.from_email, MalilMessage.izbrisan == False).order(-MalilMessage.datum).fetch()
             params = {'seznam_poslanih': sezam_poslanih, 'uporabnik': uporabnik}
             return self.render_template('brmail_poslano.html', params=params)
         else:
@@ -68,6 +68,16 @@ class SporociloPodrnoHandler(BaseHandler):
         else:
             return self.redirect_to('prijava')
 
+    def post(self, mail_id):
+        mail_message = MalilMessage.get_by_id(int(mail_id))
+        izbrisan = self.request.get('izbrisan', default_value='no')
+        if izbrisan == 'yes':
+            mail_message.izbrisan = True
+            mail_message.put()
+            return self.redirect_to('brmail-smetnjak')
+        else:
+            return self.write('sporocilo ni za brisat :) ')
+
 class OdgovoriHandler(BaseHandler):
     def get(self, mail_id):
         uporabnik = users.get_current_user()
@@ -111,6 +121,15 @@ class SporociloZaUporabnika(BaseHandler):
         else:
             self.redirect_to('prijava')
 
+class BrmailSmetnjakHander(BaseHandler):
+    def get(self):
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            seznam_izbrisanih = MalilMessage.query(MalilMessage.izbrisan == True,(uporabnik.nickname() == MalilMessage.from_nickname)).fetch()
+
+            params = {'uporabnik': uporabnik, 'seznam_izbrisanih': seznam_izbrisanih}
+
+            return self.render_template('brmail_smetnjak.html', params=params)
 
 
 

@@ -1,0 +1,45 @@
+{% extends "app_base.html" %}
+
+{% block title%} Brmail - Poslano {% endblock title %}
+
+
+{% block naslov %} Brmail Smetnjak - {{ uporabnik.nickname() }} {% endblock naslov %}
+
+{% block vsebina %}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="sredinsko">Izbrisana sporočila</h2>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="/projects/brmail/prejeto" class="btn btn-primary">Prejeto</a></li>
+            <li><a href="/projects/brmail/poslano" class="btn btn-primary">Poslano</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        <table class="table">
+            <tr>
+                <th>Za</th>
+                <th>Zadeva</th>
+                <th>Datum</th>
+                <th>Od</th>
+                <th>Izbrisan</th>
+            </tr>
+            {% for message in seznam_izbrisanih %}
+            <tr>
+                <td>{{ message.to_email }}</td>
+                <td> {{ message.subject }}</td>
+                <td>{{ message.datum }}</td>
+                <td>{{ message.from_email }}</td>
+                <td>{{ message.izbrisan }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock vsebina%}

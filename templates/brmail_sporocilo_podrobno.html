@@ -36,6 +36,15 @@
                 {{ mail_message.message }}
             </p>
             <p>
+                <span class="krepko">Možnosti</span>
+            </p>
+            <p>
+               <form action="/projects/brmail/sporocilo-podrobno/{{mail_message.key.id()}}" method="post">
+                   <input type="checkbox" name="izbrisan" value="yes"> Izbriši to Sporočilo <br><br>
+                   <button type="submit" class="btn btn-success">OK</button>
+                   
+               </form>
+               <hr>
                 <a href="/projects/brmail/sporocilo/{{mail_message.key.id()}}/odgovori" class="btn btn-primary">Odgovori</a>
             </p>
                    
