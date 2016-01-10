@@ -25,4 +25,16 @@ class LoginAdminHndler(BaseHandler):
         else:
             self.redirect_to('prijava')
 
+# podrobnosti kontaktnih sporocil
+
+class UrejanjeKontaktSporHandler(BaseHandler):
+    def get(self, sporocilo_id):
+        uporabnik = users.get_current_user()
+        if uporabnik:
+            pos_sporocilo = Sporocilo.get_by_id(int(sporocilo_id))
+            params = {'uporabnik': uporabnik, 'sporocilo': pos_sporocilo}
+            return  self.render_template('sporocilo_podrobno.html', params=params)
+        else:
+            return self.redirect_to('prijava')
+
 

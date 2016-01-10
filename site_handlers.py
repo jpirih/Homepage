@@ -76,8 +76,6 @@ class BaseHandler(webapp2.RequestHandler):
             else:
                 return False
 
-
-
  # ------- Kontrolerji za glavno ravne strani ------
 
 # kontroler za osnovno stran index.html

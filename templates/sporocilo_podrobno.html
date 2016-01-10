@@ -1,0 +1,26 @@
+{% extends "app_base.html"%}
+{% block title %} Kontakt sporocilo podrobno {% endblock title %}
+
+{% block naslov %} Podrobnosti sporočila od {{uporabnik.nickname()}}{% endblock naslov %}
+
+{% block vsebina %}
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Podrobnosti spročila {{ sporocilo.key.id()}}
+        </div>
+        <div class="panel-body">
+            <span class="krepko">Avtor: </span> {{ sporocilo.vzdevek }}<br>
+            <span class="krepko">Avtor email: </span> {{ sporocilo.email }}<br>
+            <span class="krepko">Datum sporočila: </span> {{ sporocilo.nastanek }}<br>
+            <span class="krepko">Sporočilo: </span>
+            <p>
+                {{ sporocilo.sporocilo }}
+            </p>
+        </div>
+        <div class="panel-footer">
+            <a href="mailto://{{sporocilo.email}}" class="btn btn-primary">Odgovori</a>
+        </div>
+    </div>
+</div>
+{% endblock vsebina %}

@@ -103,6 +103,14 @@ class OdgovoriHandler(BaseHandler):
                                       subject=subject, message=odgovor, datum=datum)
 
         mail_message.put()
+        notification_mail = mail.EmailMessage(sender=from_email, to=to_email,
+                                              subject= 'Prek apliacije Brmail sem ti posal/-a novo sporocilo',
+                                              body="Brmail je preprost mail client app razvit v okviru SmartNinja \n"
+                                                   "Web Developement1 za prijavo v apliacijo je obvezen google racun\n"
+                                                   "aplikacija je dostopna na povezavi \n"
+                                                   " http://janko-home-page.appspot.com/projects/brmail/prejeto\n \n"
+                                                   " Lep pozdrav %s" % from_nickname)
+        notification_mail.send()
         return self.redirect_to('brmail-poslano')
 
 class ImenikHandler(BaseHandler):

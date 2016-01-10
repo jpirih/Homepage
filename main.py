@@ -12,7 +12,7 @@ from pretvornik.handlers import PretvornikHandler
 from forenzik.handlers import ForenzikHandler
 from gl_mesto.handlers import PrestolnicaHandler
 from login_sistem.handlers import RegistracijaHandler, LoginHndler, PrijavljenHandler
-from admin.handlers import AdminHandler, LoginAdminHndler
+from admin.handlers import AdminHandler, LoginAdminHndler, UrejanjeKontaktSporHandler
 from brmail.handlers import PrejetoHandler, PoslanoHandler, NovoSporociloHandler, SporociloPodrnoHandler
 from brmail.handlers import OdgovoriHandler, ImenikHandler, SporociloZaUporabnika, BrmailSmetnjakHander
 
@@ -47,6 +47,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/prijavi-se/preveri-mail', site_handlers.PozdravUporabnikHandler),
     webapp2.Route('/prijavi-se/reg-uporabnika', site_handlers.RegUporabnikaHandler, name='reg-uporabnika'),
     webapp2.Route('/admin',AdminHandler),
+    webapp2.Route('/admin/kontakt-podrobno/<sporocilo_id:\d+>', UrejanjeKontaktSporHandler),
     webapp2.Route('/admin/login-sistem', LoginAdminHndler),
     webapp2.Route('/projects/brmail/prejeto', PrejetoHandler),
     webapp2.Route('/projects/brmail/poslano', PoslanoHandler, name='brmail-poslano'),
