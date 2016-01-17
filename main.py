@@ -46,7 +46,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/prijavi-se', site_handlers.PrijavaHandler, name="prijava"),
     webapp2.Route('/prijavi-se/preveri-mail', site_handlers.PozdravUporabnikHandler),
     webapp2.Route('/prijavi-se/reg-uporabnika', site_handlers.RegUporabnikaHandler, name='reg-uporabnika'),
-    webapp2.Route('/admin',AdminHandler),
+    webapp2.Route('/admin',AdminHandler, name='admin'),
     webapp2.Route('/admin/kontakt-podrobno/<sporocilo_id:\d+>', UrejanjeKontaktSporHandler),
     webapp2.Route('/admin/login-sistem', LoginAdminHndler),
     webapp2.Route('/projects/brmail/prejeto', PrejetoHandler),

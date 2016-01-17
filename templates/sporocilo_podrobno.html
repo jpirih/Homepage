@@ -13,9 +13,22 @@
             <span class="krepko">Avtor: </span> {{ sporocilo.vzdevek }}<br>
             <span class="krepko">Avtor email: </span> {{ sporocilo.email }}<br>
             <span class="krepko">Datum sporočila: </span> {{ sporocilo.nastanek }}<br>
-            <span class="krepko">Sporočilo: </span>
+            <span class="krepko">Sporočilo: </span> <br>
             <p>
                 {{ sporocilo.sporocilo }}
+            </p>
+            <hr>
+            <p>
+            <form action="/admin/kontakt-podrobno/{{ sporocilo.key.id() }}" method="post">
+            <input type="radio" name="obdelan"  value="yes"> Obdelan
+            <input type="radio" name="obdelan"  value="progress"> V Obelavi
+            <input type="radio" name="obdelan"  value="spam"> Nepomembno
+            <br>
+            <br>
+
+            <button type="submit" class="btn btn-success">OK</button>
+
+        </form>
             </p>
         </div>
         <div class="panel-footer">

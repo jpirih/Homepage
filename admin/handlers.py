@@ -37,4 +37,23 @@ class UrejanjeKontaktSporHandler(BaseHandler):
         else:
             return self.redirect_to('prijava')
 
+    def post(self, sporocilo_id):
+     pos_sporocilo = Sporocilo.get_by_id(int(sporocilo_id))
+     obdelan = self.request.get('obdelan')
+     if obdelan == 'yes' :
+         pos_sporocilo.obdelan = 'Obdelan'
+         pos_sporocilo.put()
+     elif obdelan == 'progress':
+         pos_sporocilo.obdelan == 'V obdelavi'
+         pos_sporocilo.put()
+     elif obdelan == 'spam':
+         pos_sporocilo.obdelan == 'Nepomembno'
+         pos_sporocilo.put()
+     else:
+         pos_sporocilo.obdelan == ' '
+         pos_sporocilo.put()
+
+     return self.redirect_to('admin')
+
+
 

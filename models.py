@@ -53,6 +53,7 @@ class Sporocilo(ndb.Model):
     vzdevek = ndb.StringProperty()
     email = ndb.StringProperty()
     sporocilo = ndb.TextProperty()
+    obdelan = ndb.StringProperty()
 
 # Brmail message model
 

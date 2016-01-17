@@ -30,6 +30,7 @@
                     <th>Sporočilo</th>
                     <th>Avtor</th>
                     <th>E-mail</th>
+                    <th>Obdelan</th>
                     <th>Možnosti</th>
                 </tr>
                 {% for sporocilo in seznam %}
@@ -38,6 +39,7 @@
                     <td>{{ sporocilo.sporocilo }}</td>
                     <td>{{ sporocilo.vzdevek }}</td>
                     <td>{{ sporocilo.email }}</td>
+                    <td><span class=" krepko">{{ sporocilo.obdelan }}</span></td>
                     <td><a href="/admin/kontakt-podrobno/{{sporocilo.key.id()}}" class="btn btn-primary">Podrobno</a></td>
                 </tr>
                 {% endfor %}
