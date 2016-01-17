@@ -19,6 +19,7 @@ from brmail.handlers import OdgovoriHandler, ImenikHandler, SporociloZaUporabnik
 
 
 # Route - navigacija po spletnem mestu
+# celotna navigacija po spletni strani :) 
 app = webapp2.WSGIApplication([
     webapp2.Route('/', site_handlers.MainHandler, name='main'),
     webapp2.Route('/about', site_handlers.AboutHandler),
